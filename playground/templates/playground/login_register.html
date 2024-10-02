@@ -66,7 +66,7 @@
             <h2 class="auth__tagline">Find your study partner</h2>
             
 
-            <form class="form" action="" method="POST">
+            <form class="form" action="" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
              {% for field in form %} 
               <div class="form__group form__group">
@@ -97,7 +97,7 @@
             </form>
 
             <div class="auth__action">
-              <p>Already logged in??</p>
+              <p>Already signed up??</p>
               <a href="{% url 'login' %}" class="btn btn--link">Login</a>
             </div>
             

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Forum</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+          * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #F3F4F6;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .header {
+      background-color: #007ACC;
+      padding: 20px 0;
+    }
+
+    .site-title {
+      color: #fff;
+      text-align: center;
+      font-size: 2.5rem;
+    }
+
+    .nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      margin-top: 10px;
+    }
+
+    .nav ul li {
+      margin: 0 15px;
+    }
+
+    .nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+
+    .main {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .sidebar {
+      flex: 1 1 300px;
+      padding: 20px;
+      background-color: #E5E7EB;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .user-profile {
+      text-align: center;
+    }
+
+    .get-help-btn {
+      background-color: #6D28D9;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .get-help-btn:hover {
+      background-color: #5B21B6;
+    }
+
+    .discussion-rooms {
+      flex: 3 1 600px;
+    }
+
+    .rooms {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .room {
+      background-color: #FFF;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .room h3 {
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+      color: #007ACC;
+    }
+
+    .room p {
+      font-size: 1rem;
+      color: #666;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 10px 0;
+      background-color: #007ACC;
+      color: #fff;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .nav ul {
+          flex-direction: column;
+          align-items: center;
+      }
+
+      .sidebar {
+          flex: 1 1 100%;
+      }
+
+      .discussion-rooms {
+          flex: 1 1 100%;
+      }
+    }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="site-title">Mental Health Forum</h1>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Discussion Rooms</a></li>
+                    <li><a href="#">Resources</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <aside class="sidebar">
+                <div class="user-profile">
+                    <h3>User Profile</h3>
+                    <p>Welcome, {{ user.username }}</p>
+                    <button class="get-help-btn">Get Help</button>
+                </div>
+            </aside>
+
+            <section class="discussion-rooms">
+                <h2>Discussion Rooms</h2>
+                <div class="rooms">
+                    <div class="room">
+                        <h3>Anxiety Support</h3>
+                        <p>Discuss coping strategies for anxiety.</p>
+                    </div>
+                    <div class="room">
+                        <h3>Depression Management</h3>
+                        <p>Share experiences and get advice.</p>
+                    </div>
+                    <div class="room">
+                        <h3>Stress Relief</h3>
+                        <p>Talk about managing daily stress.</p>
+                    </div>
+                    <div class="room">
+                        <h3>Self-Esteem Building</h3>
+                        <p>Boost your confidence through community support.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Mental Health Forum. All rights reserved.</p>
+    </footer>
+</body>
+</html>

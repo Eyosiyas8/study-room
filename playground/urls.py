@@ -14,11 +14,14 @@ urlpatterns = [
     path('delete-room/<str:pk>/', views.deleteRoom, name='delete-room'),
 
     path('create-user', views.createUser, name='create-user'),
+    path('delete-chat/<str:pk>/', views.deleteChat, name='delete-chat'),
     path('delete-message/<str:pk>/', views.deleteMessage, name='delete-message'),
     path('update-user/', views.updateUser, name='update-user'),
+    path('update-chat/<str:pk>/', views.updateChat, name='update-chat'),
 
     path('topics/', views.topicsPage, name='topics'),
     path('activity/', views.activityPage, name='activity'),
+    path('chat/<str:username>/', views.chat, name='chat'),
     
     # path('delete-recent/<str:pk>/', views.deleteRecent, name='delete-recent'),
     # path('add-message', views.createMessage, name='add-message'),

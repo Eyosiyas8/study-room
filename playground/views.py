@@ -1,13 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Room, Topic, Message
+from .models import Room, Topic, Message, User, Chat
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from .forms import RoomForm, MessageForm, UserForm
+# from django.contrib.auth.forms import UserCreationForm
+from .forms import RoomForm, MessageForm, UserForm, MyUserCreation, ChatForm
 from django.db.models import Q
+import django.template.defaultfilters
 
 # Create your views here.
 
@@ -46,9 +46,9 @@ def loginPage(request):
     return render(request, 'playground/login_register.html', context)
 
 def registerUser(request):
-    form = UserCreationForm()
+    form = MyUserCreation
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = MyUserCreation(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
@@ -74,7 +74,10 @@ def home(request):
     topics = Topic.objects.all()[0:5]
     topics_count = topics.count()
     room_count = rooms.count()
-    room_messages = Message.objects.filter(Q(room__name__icontains=q))
+    room_messages = Message.objects.filter(Q(room__topic__name__icontains=q) | 
+        Q(room__name__icontains=q) | 
+        Q(room__description__icontains=q) | 
+        Q(room__host__username__icontains=q))
 
     context = {'rooms':rooms, 'topics':topics, 'room_count':room_count, 'room_messages': room_messages, 'topics_count': topics_count}
     return render(request, 'playground/home.html', context)
@@ -155,6 +158,7 @@ def createRoom(request):
 #     context = {'form': form, 'topics': topics, 'room': room}
 #     return render(request, 'playground/room_form.html', context)
 
+@login_required(login_url='login')
 def updateRoom(request, pk):
     room = Room.objects.get(id=pk)
     # form = RoomForm(instance=room)
@@ -197,12 +201,84 @@ def deleteRoom(request, pk):
 def createUser(request):
     form = RoomForm()
     if request.method == 'POST':
-        form.RoomForm(request.POST)
+        form.RoomForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('home')
     
     return render(request, 'playground/home.html', {'form',form})
+
+def createContent(request):
+    form = MessageForm()
+    return render(request, 'playground/room.html')
+
+@login_required(login_url='login')
+def updateUser(request):
+    user = request.user
+    form = UserForm(instance=user)
+    if request.method == "POST":
+        form = UserForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('user-profile', pk=user.id)
+    return render(request, 'playground/update-user.html', {'form': form})
+
+@login_required(login_url='login')
+def chat(request, username):
+    other_user = get_object_or_404(User, username=username)
+    if request.method == 'POST':
+        form = Chat.objects.create(
+            sender=request.user,
+            recipient=other_user,
+            message=request.POST.get('body')
+        )
+        return redirect('chat', username=other_user.username)  # Redirect to the same conversation after sending
+    else:
+        form = ChatForm()
+
+    # Filter messages where request.user is either the sender or recipient
+    # and the other_user is the other participant
+    conversation = Chat.objects.filter(
+        (Q(sender=request.user) & Q(recipient=other_user)) |
+        (Q(sender=other_user) & Q(recipient=request.user))
+    ).order_by('timestamp')
+    context = {'form': form, 'conversation': conversation, 'other_user': other_user}
+    return render(request, 'playground/chat.html', context)
+
+@login_required(login_url='login')
+def updateChat(request, pk):
+    page = 'update'
+    message = Chat.objects.get(id=pk)
+    # form = RoomForm(instance=room)
+    recipient = message.recipient
+    body = message.message
+
+    if request.user != message.sender:
+        return HttpResponse('You are not allowed here!')
+
+    if request.method == 'POST':
+        message.message = request.POST.get('body')
+        message.save()
+        return redirect('chat', recipient)
+    # else:
+    #     return HttpResponse('Failed')
+
+    context = {'single_message': message, 'page': page}
+    return render(request, 'playground/chat.html', context)
+
+@login_required(login_url='login')
+def deleteChat(request, pk):
+    message = Chat.objects.get(id=pk)
+    # form = RoomForm(instance=room)
+    
+    if request.user != message.sender:
+        return HttpResponse('You are not allowed here!')
+
+    if request.method == 'POST':
+        message.delete()
+        return redirect('chat', message.recipient.username)
+
+    return render(request, 'playground/delete.html', {'obj':message})
 
 # def updateMessage(request, pk):
 #     room = Room.objects.get(id=pk)
@@ -232,16 +308,6 @@ def deleteMessage(request, pk):
         return redirect('home')
 
     return render(request, 'playground/delete.html', {'obj':message})
-@login_required(login_url='login')
-def updateUser(request):
-    user = request.user
-    form = UserForm(instance=user)
-    if request.method == "POST":
-        form = UserForm(request.POST, instance=user)
-        if form.is_valid():
-            form.save()
-            return redirect('user-profile', pk=user.id)
-    return render(request, 'playground/update-user.html', {'form': form})
 
 # @login_required(login_url='login')
 
