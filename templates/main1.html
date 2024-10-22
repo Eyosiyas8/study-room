@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mental Health</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fdf6e6;
+    color: #333;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  nav ul li a:hover {
+    color: #ff6600;
+  }
+  
+  .search {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .search input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .search button {
+    background-color: #6a1b9a;
+    border: none;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Hero section */
+  .hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    margin-top: 20px;
+  }
+  
+  .content {
+    max-width: 50%;
+  }
+  
+  h1 {
+    font-family: 'Dela Gothic One', sans-serif;
+    font-size: 48px;
+    color: #000;
+    margin-bottom: 20px;
+  }
+  
+  h1 .highlight {
+    color: #ff6600;
+  }
+  
+  p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  
+  .btn {
+    background-color: #6a1b9a;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .btn:hover {
+    background-color: #541276;
+  }
+  .container {
+    width: 85%;
+    margin: 0 auto;
+    }
+  .logo {
+    
+    }
+
+nav {
+  margin-top: 20px;
+  margin-left: 20px;
+  float: right;
+  display: flex;
+  align-items: center;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+nav ul li a:hover {
+  color: #ff6600;
+}
+
+.search {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+}
+
+.search button {
+  background-color: #6a1b9a;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 25px;
+  cursor: pointer;
+}  
+  .image img {
+    width: 600px;
+    max-width: 100%;
+    margin-right: 50%;
+    margin-top: 30px;
+  }
+  
+  /* Discussion section */
+  .discussion-rooms {
+    margin-top: 100px;
+    background-color: #ffffff;
+  }
+  .subtitle{
+    padding-top: 40px;
+    padding-left: 40px;
+    color: #021686;
+  }
+  .rooms {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 40px;
+    padding-bottom: 40px;
+  }
+
+  .room {
+    background-color: #FFF;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    max-width: 23%;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Number background as quarter circle in top-right corner */
+.room-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    background-color: #7b4a99; /* Default color */
+    border-radius: 0 0 0 100px; /* Quarter circle */
+}
+
+/* All numbers have the same color until hover */
+.room:hover .room-number {
+    background-color: #ff6600; /* Change background color on hover */
+}
+
+/* Heading and paragraph styling */
+.room h3 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #7b4a99;
+}
+
+.room p {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* "More" button styling */
+.more-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #7b4a99;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.more-btn:hover {
+    background-color: #ff6600;
+}
+
+/* Hover effect */
+.room:hover {
+    background-color: #7b4a99;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+.room:hover h3, .room:hover p, .room:hover .more-btn {
+    color: #fff;
+}
+
+
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .content {
+      max-width: 100%;
+    }
+  
+    .image img {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .rooms {
+      flex-direction: column;
+    }
+
+    .room {
+      max-width: 100%;
+    }
+  }
+  
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo">
+        <img src="logo.png" alt="logo" style="height: 25%; width: 25%; float: left;">
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Login</a></li>
+        </ul>
+        <div class="search">
+          <input type="text" placeholder="Search">
+          <button type="submit">🔍</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="content">
+      <h1><span class="highlight">MENTAL</span> HEALTH</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+      <a href="#" class="btn">READ MORE</a>
+    </div>
+    <div class="image">
+      <img src="mental-health.png" alt="Mental Health">
+    </div>
+  </section>
+
+  <section class="discussion-rooms">
+    <h2 class="subtitle">Discussion Rooms</h2>
+    <div class="rooms">
+        <div class="room">
+          <span class="room-number">1</span>
+          <h3>Anxiety Support</h3>
+          <p>Discuss coping strategies for anxiety.</p>
+          <a href="#" class="more-btn">More</a>
+        </div>
+        <div class="room">
+          <span class="room-number">2</span>
+          <h3>Depression Management</h3>
+          <p>Share experiences and get advice.</p>
+          <a href="#" class="more-btn">More</a>
+        </div>
+        <div class="room">
+          <span class="room-number">3</span>
+          <h3>Stress Relief</h3>
+          <p>Talk about managing daily stress.</p>
+          <a href="#" class="more-btn">More</a>
+        </div>
+        <div class="room">
+          <span class="room-number">4</span>
+          <h3>Self-Esteem Building</h3>
+          <p>Boost your confidence through community support.</p>
+          <a href="#" class="more-btn">More</a>
+        </div>
+      </div>      
+  </section>
+</body>
+</html>
